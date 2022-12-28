@@ -1,301 +1,300 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://resources/circuit1.png" type="Texture" id=1]
+[ext_resource path="res://resources/circuits/circuit1.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Board.gd" type="Script" id=2]
 [ext_resource path="res://scripts/BoardCell.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 44, 44 )
+extents = Vector2( 60, 60 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 344, 488 )
-scale = Vector2( 0.756637, 0.756637 )
 texture = ExtResource( 1 )
+centered = false
 
 [node name="Cells" type="Node2D" parent="."]
 position = Vector2( 2, 1 )
 
 [node name="Cell0" type="StaticBody2D" parent="Cells"]
-position = Vector2( 295, 7 )
+position = Vector2( 386, 7 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell0"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell1" type="StaticBody2D" parent="Cells"]
-position = Vector2( 391, 7 )
+position = Vector2( 515, 7 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell1"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell2" type="StaticBody2D" parent="Cells"]
-position = Vector2( 488, 7 )
+position = Vector2( 641, 7 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell2"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell3" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 7 )
+position = Vector2( 766, 7 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell3"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell4" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 100 )
+position = Vector2( 766, 130 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell4"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell5" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 196 )
+position = Vector2( 766, 259 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell5"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell6" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 293 )
+position = Vector2( 766, 387 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell6"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell7" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 391 )
+position = Vector2( 766, 515 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell7"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell8" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 488 )
+position = Vector2( 766, 643 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell8"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell9" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 585 )
+position = Vector2( 766, 771 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell9"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell10" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 682 )
+position = Vector2( 766, 899 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell10"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell11" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 779 )
+position = Vector2( 766, 1027 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell11"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell12" type="StaticBody2D" parent="Cells"]
-position = Vector2( 583, 872 )
+position = Vector2( 766, 1151 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell12"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell13" type="StaticBody2D" parent="Cells"]
-position = Vector2( 488, 872 )
+position = Vector2( 642, 1151 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell13"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell14" type="StaticBody2D" parent="Cells"]
-position = Vector2( 391, 872 )
+position = Vector2( 514, 1151 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell14"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell15" type="StaticBody2D" parent="Cells"]
-position = Vector2( 391, 779 )
+position = Vector2( 514, 1026 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell15"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell16" type="StaticBody2D" parent="Cells"]
-position = Vector2( 391, 682 )
+position = Vector2( 514, 898 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell16"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell17" type="StaticBody2D" parent="Cells"]
-position = Vector2( 295, 682 )
+position = Vector2( 386, 899 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell17"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell18" type="StaticBody2D" parent="Cells"]
-position = Vector2( 198, 682 )
+position = Vector2( 258, 899 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell18"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell19" type="StaticBody2D" parent="Cells"]
-position = Vector2( 198, 779 )
+position = Vector2( 258, 1026 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell19"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell20" type="StaticBody2D" parent="Cells"]
-position = Vector2( 102, 779 )
+position = Vector2( 130, 1025 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell20"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell21" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 779 )
+position = Vector2( 7, 1025 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell21"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell22" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 682 )
+position = Vector2( 7, 900 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell22"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell23" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 585 )
+position = Vector2( 7, 771 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell23"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell24" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 488 )
+position = Vector2( 7, 645 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell24"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell25" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 391 )
+position = Vector2( 7, 516 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell25"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell26" type="StaticBody2D" parent="Cells"]
-position = Vector2( 102, 391 )
+position = Vector2( 130, 516 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell26"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell27" type="StaticBody2D" parent="Cells"]
-position = Vector2( 198, 391 )
+position = Vector2( 259, 515 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell27"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell28" type="StaticBody2D" parent="Cells"]
-position = Vector2( 295, 391 )
+position = Vector2( 386, 516 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell28"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell29" type="StaticBody2D" parent="Cells"]
-position = Vector2( 295, 293 )
+position = Vector2( 386, 388 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell29"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell30" type="StaticBody2D" parent="Cells"]
-position = Vector2( 295, 196 )
+position = Vector2( 386, 261 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell30"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell31" type="StaticBody2D" parent="Cells"]
-position = Vector2( 198, 196 )
+position = Vector2( 258, 261 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell31"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell32" type="StaticBody2D" parent="Cells"]
-position = Vector2( 102, 196 )
+position = Vector2( 130, 260 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell32"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell33" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 196 )
+position = Vector2( 7, 262 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell33"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell34" type="StaticBody2D" parent="Cells"]
-position = Vector2( 7, 100 )
+position = Vector2( 8, 130 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell34"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell35" type="StaticBody2D" parent="Cells"]
@@ -303,23 +302,23 @@ position = Vector2( 7, 7 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell35"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell36" type="StaticBody2D" parent="Cells"]
-position = Vector2( 102, 7 )
+position = Vector2( 130, 8 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell36"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Cell37" type="StaticBody2D" parent="Cells"]
-position = Vector2( 198, 7 )
+position = Vector2( 258, 9 )
 script = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="Cells/Cell37"]
-position = Vector2( 44, 44 )
+position = Vector2( 60, 60 )
 shape = SubResource( 1 )
 
 [node name="Tokens" type="Node2D" parent="."]

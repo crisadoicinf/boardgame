@@ -2,34 +2,34 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circuit1.png-21763f8e0c79782e7b6d7da9a9f1607b.stex"
+path="res://.import/circuit1.png-736c9d804d071d0e3321f8f505c44c12.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/circuit1.png"
-dest_files=[ "res://.import/circuit1.png-21763f8e0c79782e7b6d7da9a9f1607b.stex" ]
+source_file="res://resources/circuits/circuit1.png"
+dest_files=[ "res://.import/circuit1.png-736c9d804d071d0e3321f8f505c44c12.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
