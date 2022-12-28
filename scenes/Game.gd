@@ -12,6 +12,8 @@ onready var playerSlots = [
 onready var deck = $Deck
 onready var playerMainCard = $PlayercardContainer/PlayerMainCard
 onready var playerDeck = $PlayercardContainer/PlayerDeck
+onready var turnText:Label = $TurnText/Label
+onready var anim:AnimationPlayer=$Anim
 var players: Array = []
 var currentPlayer
 var laps = 1
@@ -71,6 +73,8 @@ func start_game():
 
 func start_turn(player):
 	currentPlayer = player
+	turnText.set_text(player.get_avatar() + "'s turn")
+	anim.play("start_turn")
 	var cards = player.get_cards().duplicate()
 	playerMainCard.set_card(cards.pop_back())
 	playerDeck.set_cards(cards)
