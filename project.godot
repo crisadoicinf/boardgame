@@ -47,7 +47,7 @@ config/icon="res://icon.png"
 window/size/width=700
 window/size/height=1500
 window/handheld/orientation="portrait"
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [gui]
