@@ -2,7 +2,8 @@ extends Node
 
 onready var board = $Board
 var players: Array = []
-var playerIndex = 0
+var currentPlayer
+var laps = 1
 
 
 func _ready():
@@ -14,8 +15,8 @@ func _ready():
 func create_players():
 	players.append(create_player())
 	players.append(create_player())
-	players.append(create_player())
-	players.append(create_player())
+	#players.append(create_player())
+	#players.append(create_player())
 
 
 func create_player():
@@ -31,17 +32,13 @@ func create_player():
 	return player
 
 
-func get_current_player():
-	return players[playerIndex]
-
-
 func start_game():
+	currentPlayer = players[0]
 	start_turn()
 
 
 func start_turn():
-	var player = get_current_player()
-	yield(move_player(player, 5), "completed")
+	yield(move_player(currentPlayer, 20), "completed")
 	end_turn()
 
 
@@ -51,17 +48,40 @@ func move_player(player, steps):
 	cell.remove_player(player)
 	player.set_cell(null)
 	var bag: Rect2
+	var passing = true
 	for i in range(steps):
 		cell = cell.get_next_cell()
 		bag = cell.get_middle_bag()
-		if i == 4:
+		if cell.get_index() == 0:
+			if player.lap == laps:
+				player.set_finished(true)
+				passing = false
+			else:
+				player.lap += 1
+		passing = passing && i < steps - 1
+		if !passing:
 			cell.add_player(player)
 			player.set_cell(cell)
 			bag = cell.get_bag(player)
-		board.adjust_tokens(cell)
+			board.adjust_tokens(cell)
 		yield(token.move_to(bag.position), "finished")
+		if !passing:
+			break
 
 
 func end_turn():
-	playerIndex = (playerIndex + 1) % players.size()
-	start_turn()
+	var index = players.find(currentPlayer, 0)
+	index = (index + 1) % players.size()
+	var player = players[index]
+	while player.is_finished() && player != currentPlayer:
+		index = (index + 1) % players.size()
+		player = players[index]
+	if player == currentPlayer && player.is_finished():
+		end_game()
+	else:
+		currentPlayer = player
+		start_turn()
+
+
+func end_game():
+	print("end game")

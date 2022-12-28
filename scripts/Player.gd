@@ -3,6 +3,8 @@ extends Object
 class_name Player
 
 var cell = null
+var lap = 1
+var finished = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,5 +20,9 @@ func get_cell():
 	return cell
 
 
-func can_play() -> bool:
-	return true
+func is_finished() -> bool:
+	return finished
+
+
+func set_finished(value: bool):
+	finished = value
