@@ -81,7 +81,7 @@ func get_direction():
 
 
 func get_middle_bag():
-	var size = get_size() * 0.45
+	var size = get_size() * 0.5
 	var center = Rect2(get_position(), get_size()).get_center()
 	return Rect2(center - size * 0.5, size)
 
@@ -104,5 +104,5 @@ func get_bag(object) -> Rect2:
 	elif direction == DIR_UP:
 		x = position[1]
 		y = position[0]
-	var size = get_size() * 0.45
+	var size = get_size() * 0.5
 	return Rect2(get_position() + get_size() * Vector2(x, y) - size * 0.5, size)
