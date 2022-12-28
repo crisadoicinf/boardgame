@@ -10,8 +10,8 @@ onready var playerSlots = [
 	$PlayerSlots/Slot1, $PlayerSlots/Slot2, $PlayerSlots/Slot3, $PlayerSlots/Slot4
 ]
 onready var deck = $Deck
-onready var card = $Card
-onready var playerMainCard = $PlayerMainCard
+onready var playerMainCard = $PlayercardContainer/PlayerMainCard
+onready var playerDeck = $PlayercardContainer/PlayerDeck
 var players: Array = []
 var currentPlayer
 var laps = 1
@@ -66,16 +66,25 @@ func get_deck():
 
 
 func start_game():
-	currentPlayer = players[0]
-	start_turn()
+	start_turn(players[0])
 
 
-func start_turn():
+func start_turn(player):
+	currentPlayer = player
+	var cards = player.get_cards().duplicate()
+	playerMainCard.set_card(cards.pop_back())
+	playerDeck.set_cards(cards)
 	dice.set_enabled(true)
-	print(currentPlayer.get_avatar(), " start_turn")
+	playerMainCard.set_enabled(true)
+	playerDeck.set_enabled(true)
+	#yield(draw_card(player), "completed")
+	#yield(draw_card(player), "completed")
+	#yield(draw_card(player), "completed")
+	print("'", player.get_avatar(), "' starts turn")
 
 
 func move_player(player, steps):
+	print("'", player.get_avatar(), "' moves '", steps, "' steps")
 	dice.set_enabled(false)
 	var token = board.get_token(player)
 	var cell = player.get_cell()
@@ -113,6 +122,8 @@ func move_player(player, steps):
 
 func draw_card(player):
 	dice.set_enabled(false)
+	playerMainCard.set_enabled(false)
+	playerDeck.set_enabled(false)
 	var size = deck.get_size() * deck.get_scale()
 	var card = deck.draw_card()
 	add_child(card)
@@ -134,31 +145,34 @@ func draw_card(player):
 	yield(tween, "finished")
 	yield(self, "card_accepted")
 
-	#remove_child(card)
 	player.get_cards().append(card)
-	playerMainCard.set_card(card)
-	print("give player '", player.get_avatar(), "' card '", card.get_id(), "'")
+	var cards = player.get_cards().duplicate()
+	playerMainCard.set_card(cards.pop_back())
+	playerDeck.set_cards(cards)
+	print("'", player.get_avatar(), "' gets '", card.get_id(), "' card")
 
 
 func accept_card(card):
 	remove_child(card)
 	dice.set_enabled(true)
+	playerMainCard.set_enabled(true)
+	playerDeck.set_enabled(true)
 	emit_signal("card_accepted")
 
 
-func end_turn():
-	yield(draw_card(currentPlayer), "completed")
-	var index = players.find(currentPlayer, 0)
+func end_turn(player):
+	yield(draw_card(player), "completed")
+	print("'", player.get_avatar(), "' ens turn")
+	var index = players.find(player, 0)
 	index = (index + 1) % players.size()
-	var player = players[index]
-	while player.is_finished() and player != currentPlayer:
+	var nextPlayer = players[index]
+	while nextPlayer.is_finished() and nextPlayer != player:
 		index = (index + 1) % players.size()
-		player = players[index]
-	if player == currentPlayer and player.is_finished():
+		nextPlayer = players[index]
+	if nextPlayer == player and nextPlayer.is_finished():
 		end_game()
 	else:
-		currentPlayer = player
-		start_turn()
+		start_turn(nextPlayer)
 
 
 func end_game():
@@ -169,7 +183,36 @@ func _on_dice_click(dice):
 	dice.set_enabled(false)
 	var number = dice.get_random_number()
 	number = 4
+	print("'", currentPlayer.get_avatar(), "' throws dice '", number, "'")
 	playerSlots[currentPlayer.slot].roll_dice(number)
 	yield(dice.roll(number), "completed")
 	yield(move_player(currentPlayer, number), "completed")
-	end_turn()
+	end_turn(currentPlayer)
+
+
+var _openingDeck = false
+
+
+func _on_player_card_click(playerCard):
+	if (
+		playerCard == playerMainCard
+		and currentPlayer.get_cards().size() > 1
+		and !playerDeck.is_visible()
+	):
+		_openingDeck = true
+		playerDeck.show()
+	else:
+		playerDeck.hide()
+		#play card
+		print("'", currentPlayer.get_avatar(), " plays card '", playerCard.get_card().get_id(), "'")
+
+
+func _input(event):
+	if (
+		event is InputEventMouseButton
+		and event.is_pressed()
+		and event.get_button_index() == BUTTON_LEFT
+	):
+		if !_openingDeck and playerDeck.is_visible():
+			playerDeck.hide()
+		_openingDeck = false
