@@ -10,10 +10,6 @@ onready var infoContainer = $Container/InfoContainer
 var id
 
 
-func _init(id):
-	self.id = id
-
-
 func get_id() -> String:
 	return id
 

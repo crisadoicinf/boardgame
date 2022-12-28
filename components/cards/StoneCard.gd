@@ -1,5 +1,5 @@
 extends "res://components/cards/Card.gd"
 
 
-func _init().("stone"):
-	pass
+func get_id() -> String:
+	return "stone"
