@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/parrot.png-2d832b15e3e64b3b66604b5fc9faa4cd.stex"
+path="res://.import/parrot.png-4572ad94a94c6ef57f00eb8ebe09c697.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/avatar/parrot.png"
-dest_files=[ "res://.import/parrot.png-2d832b15e3e64b3b66604b5fc9faa4cd.stex" ]
+source_file="res://resources/avatars/parrot.png"
+dest_files=[ "res://.import/parrot.png-4572ad94a94c6ef57f00eb8ebe09c697.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/penguin.png-702848ef84e89d65328eb0f83a72f8d2.stex"
+path="res://.import/chick.png-d7d9650769a30409bae4bae090117047.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/avatar/penguin.png"
-dest_files=[ "res://.import/penguin.png-702848ef84e89d65328eb0f83a72f8d2.stex" ]
+source_file="res://resources/avatars/chick.png"
+dest_files=[ "res://.import/chick.png-d7d9650769a30409bae4bae090117047.stex" ]
 
 [params]
 
@@ -18,7 +18,7 @@ compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
+compress/normal_map=2
 flags/repeat=0
 flags/filter=true
 flags/mipmaps=false
