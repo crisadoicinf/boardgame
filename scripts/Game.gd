@@ -2,37 +2,39 @@ extends Node2D
 
 onready var board = $Board
 onready var dice = $Dice
+onready var playerSlots = [$PlayerSlots/Slot1, $PlayerSlots/Slot2, $PlayerSlots/Slot3, $PlayerSlots/Slot4]
 var players: Array = []
 var currentPlayer
 var laps = 1
 var movingPlayer: bool = false
+var avatars = []
 
 
 func _ready():
-	create_players()
+	randomize()
+	create_players(4)
+	for player in players:
+		var cell = board.get_cell_at(0)
+		cell.add_player(player)
+		player.set_cell(cell)
+		var bag = cell.get_bag(player)
+		var token = board.create_token(player, player.avatar)
+		token.set_position(bag.position)
+		playerSlots[player.slot].set_player(player)
 	board.adjust_tokens(board.get_cell_at(0))
 	start_game()
 
 
-func create_players():
-	players.append(create_player())
-	players.append(create_player())
-	#players.append(create_player())
-	#players.append(create_player())
-
-
-func create_player():
-	var player = load("res://scripts/Player.gd").new()
-	var cell = board.get_cell_at(0)
-	cell.add_player(player)
-	player.set_cell(cell)
-	var avatars = ["chick", "chicken", "owl", "parrot"]
-	var avatar = avatars[randi() % avatars.size()]
-	var token = board.create_token(player, avatar)
-	var bag = cell.get_bag(player)
-	token.set_position(bag.position)
-	return player
-
+func create_players(total:int):
+	avatars = ["chick", "chicken", "owl", "parrot", "penguin"].duplicate()
+	avatars.shuffle()
+	var slot = randi() % playerSlots.size()
+	for i in range(total):
+		var player = load("res://scripts/Player.gd").new()
+		player.avatar = avatars.pop_back()
+		player.slot = slot%playerSlots.size()
+		slot+=1
+		players.append(player)
 
 func start_game():
 	currentPlayer = players[0]
@@ -101,13 +103,13 @@ func _input(event):
 		and event.get_button_index() == BUTTON_LEFT
 	):
 		if get_child_rect(dice).has_point(to_local(event.position)):
-			roll_dice()
+			handle_dice_click()
 
 
-func roll_dice():
+func handle_dice_click():
 	if !dice.is_rolling() and !movingPlayer:
 		var number = dice.get_random_number()
-		print("dice", " ", number)
+		playerSlots[currentPlayer.slot].roll_dice(number)
 		yield(dice.roll(number), "completed")
 		yield(move_player(currentPlayer, number), "completed")
 		end_turn()

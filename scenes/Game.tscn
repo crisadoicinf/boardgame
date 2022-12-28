@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://components/Board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=2]
 [ext_resource path="res://components/Dice.tscn" type="PackedScene" id=3]
+[ext_resource path="res://components/PlayerSlot.tscn" type="PackedScene" id=4]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -10,9 +11,25 @@ script = ExtResource( 2 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 700.0
 margin_bottom = 1500.0
+color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
 [node name="Board" parent="." instance=ExtResource( 1 )]
 position = Vector2( 8, 220 )
+scale = Vector2( 0.763444, 0.763444 )
 
 [node name="Dice" parent="." instance=ExtResource( 3 )]
 position = Vector2( 560, 1355 )
+
+[node name="PlayerSlots" type="Node" parent="."]
+
+[node name="Slot1" parent="PlayerSlots" instance=ExtResource( 4 )]
+position = Vector2( 8, 104 )
+
+[node name="Slot2" parent="PlayerSlots" instance=ExtResource( 4 )]
+position = Vector2( 8, 1212 )
+
+[node name="Slot3" parent="PlayerSlots" instance=ExtResource( 4 )]
+position = Vector2( 517, 1212 )
+
+[node name="Slot4" parent="PlayerSlots" instance=ExtResource( 4 )]
+position = Vector2( 517, 104 )
