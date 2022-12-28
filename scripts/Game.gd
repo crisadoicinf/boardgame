@@ -1,9 +1,11 @@
-extends Node
+extends Node2D
 
 onready var board = $Board
+onready var dice = $Dice
 var players: Array = []
 var currentPlayer
 var laps = 1
+var movingPlayer: bool = false
 
 
 func _ready():
@@ -38,11 +40,11 @@ func start_game():
 
 
 func start_turn():
-	yield(move_player(currentPlayer, 20), "completed")
-	end_turn()
+	print("start_turn")
 
 
 func move_player(player, steps):
+	movingPlayer = true
 	var token = board.get_token(player)
 	var cell = player.get_cell()
 	cell.remove_player(player)
@@ -58,25 +60,26 @@ func move_player(player, steps):
 				passing = false
 			else:
 				player.lap += 1
-		passing = passing && i < steps - 1
+		passing = passing and i < steps - 1
 		if !passing:
 			cell.add_player(player)
 			player.set_cell(cell)
 			bag = cell.get_bag(player)
 			board.adjust_tokens(cell)
-		yield(token.move_to(bag.position), "finished")
+		yield(token.move_to(bag.position), "completed")
 		if !passing:
 			break
+	movingPlayer = false
 
 
 func end_turn():
 	var index = players.find(currentPlayer, 0)
 	index = (index + 1) % players.size()
 	var player = players[index]
-	while player.is_finished() && player != currentPlayer:
+	while player.is_finished() and player != currentPlayer:
 		index = (index + 1) % players.size()
 		player = players[index]
-	if player == currentPlayer && player.is_finished():
+	if player == currentPlayer and player.is_finished():
 		end_game()
 	else:
 		currentPlayer = player
@@ -85,3 +88,26 @@ func end_turn():
 
 func end_game():
 	print("end game")
+
+
+func get_child_rect(child) -> Rect2:
+	return Rect2(child.get_position(), child.get_size() * child.get_scale())
+
+
+func _input(event):
+	if (
+		event is InputEventMouseButton
+		and event.is_pressed()
+		and event.get_button_index() == BUTTON_LEFT
+	):
+		if get_child_rect(dice).has_point(to_local(event.position)):
+			roll_dice()
+
+
+func roll_dice():
+	if !dice.is_rolling() and !movingPlayer:
+		var number = dice.get_random_number()
+		print("dice", " ", number)
+		yield(dice.roll(number), "completed")
+		yield(move_player(currentPlayer, number), "completed")
+		end_turn()

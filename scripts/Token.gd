@@ -3,6 +3,7 @@ extends Node2D
 onready var image: Sprite = $Image
 
 var object
+var moving: bool = false
 
 # Called when the node enters the scene tree for the first time.
 
@@ -23,10 +24,16 @@ func get_object():
 	return object
 
 
-func move_to(value: Vector2) -> SceneTreeTween:
+func move_to(value: Vector2):
+	moving = true
 	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "position", value, 0.4)
-	return tween
+	yield(tween, "finished")
+	moving = false
+
+
+func is_moving() -> bool:
+	return moving
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
