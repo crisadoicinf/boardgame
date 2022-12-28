@@ -7,6 +7,6 @@
 script = ExtResource( 2 )
 
 [node name="Image" type="Sprite" parent="."]
-position = Vector2( 20.1434, 20.5 )
 scale = Vector2( 0.286765, 0.286765 )
 texture = ExtResource( 1 )
+centered = false

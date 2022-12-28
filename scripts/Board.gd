@@ -17,6 +17,7 @@ func create_token(object, textureName: String):
 	token.set_object(object)
 	tokens.add_child(token)
 	token.set_texture(textureName)
+	token.set_size(get_cell_at(0).get_middle_bag().size)
 	return token
 
 
