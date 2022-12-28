@@ -1,9 +1,9 @@
 extends Node2D
 
 onready var dice: AnimatedSprite = $AnimatedSprite
-const textures: Array = []
-const totalTextures: Array = []
-const animation = "roll"
+var textures: Array = []
+var totalTextures: Array = []
+var animation = "roll"
 var frames: SpriteFrames
 
 
