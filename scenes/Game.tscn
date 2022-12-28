@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://components/board/Board.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://components/Deck.tscn" type="PackedScene" id=6]
 [ext_resource path="res://components/PlayerDeck.tscn" type="PackedScene" id=7]
 [ext_resource path="res://resources/fonts/SpeedRush.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://components/BubbleCounter.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 35
@@ -53,28 +54,25 @@ margin_bottom = 1500.0
 color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
 [node name="Board" parent="." instance=ExtResource( 1 )]
-position = Vector2( 8, 220 )
+position = Vector2( 8, 206 )
 scale = Vector2( 0.763444, 0.763444 )
 
-[node name="Dice" parent="." instance=ExtResource( 3 )]
-position = Vector2( 560, 1355 )
-
 [node name="Deck" parent="." instance=ExtResource( 6 )]
-position = Vector2( 302, 705 )
+position = Vector2( 302, 691 )
 
 [node name="PlayerSlots" type="Node" parent="."]
 
 [node name="Slot1" parent="PlayerSlots" instance=ExtResource( 4 )]
-position = Vector2( 8, 104 )
+position = Vector2( 8, 89 )
 
 [node name="Slot2" parent="PlayerSlots" instance=ExtResource( 4 )]
-position = Vector2( 8, 1212 )
+position = Vector2( 8, 1197 )
 
 [node name="Slot3" parent="PlayerSlots" instance=ExtResource( 4 )]
-position = Vector2( 517, 1212 )
+position = Vector2( 517, 1197 )
 
 [node name="Slot4" parent="PlayerSlots" instance=ExtResource( 4 )]
-position = Vector2( 517, 104 )
+position = Vector2( 517, 89 )
 
 [node name="PlayercardContainer" type="Node" parent="."]
 
@@ -86,12 +84,16 @@ visible = false
 position = Vector2( 24, 1355 )
 scale = Vector2( 0.8, 0.8 )
 
+[node name="Dice" parent="." instance=ExtResource( 3 )]
+position = Vector2( 560, 1355 )
+
 [node name="TurnText" type="Node2D" parent="."]
 position = Vector2( 194, 1268 )
 
 [node name="Label" type="Label" parent="TurnText"]
+margin_top = -17.0
 margin_right = 307.0
-margin_bottom = 72.0
+margin_bottom = 55.0
 custom_fonts/font = SubResource( 1 )
 text = "player's turn"
 align = 1
@@ -100,9 +102,15 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="TotalCards" parent="." instance=ExtResource( 9 )]
+position = Vector2( 129, 1317 )
+
+[node name="TotalDices" parent="." instance=ExtResource( 9 )]
+position = Vector2( 522, 1317 )
+
 [node name="Anim" type="AnimationPlayer" parent="."]
 anims/start_turn = SubResource( 2 )
 
-[connection signal="click" from="Dice" to="." method="_on_dice_click"]
 [connection signal="click" from="PlayercardContainer/PlayerMainCard" to="." method="_on_player_card_click"]
 [connection signal="click_player_card" from="PlayercardContainer/PlayerDeck" to="." method="_on_player_card_click"]
+[connection signal="click" from="Dice" to="." method="_on_dice_click"]
