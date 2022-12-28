@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name Board
-
 onready var cells: Node2D = $Cells
 onready var tokens: Node2D = $Tokens
 
@@ -9,6 +7,11 @@ onready var tokens: Node2D = $Tokens
 func _ready():
 	for cell in cells.get_children():
 		cell.set_board(self)
+
+
+func set_game(game):
+	for cell in cells.get_children():
+		cell.set_game(game)
 
 
 func create_token(object, textureName: String):

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/circuits/circuit1.png" type="Texture" id=1]
-[ext_resource path="res://scripts/Board.gd" type="Script" id=2]
-[ext_resource path="res://scripts/BoardCell.gd" type="Script" id=3]
-[ext_resource path="res://scripts/BoardCellItem.gd" type="Script" id=4]
+[ext_resource path="res://scripts/board/Board.gd" type="Script" id=2]
+[ext_resource path="res://scripts/board/BoardCell.gd" type="Script" id=3]
+[ext_resource path="res://scripts/board/BoardCellItem.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 60 )

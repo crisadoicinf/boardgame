@@ -15,8 +15,10 @@ func set_texture(name: String):
 func get_size() -> Vector2:
 	return image.texture.get_size() * image.get_scale()
 
-func set_size(size:Vector2):
+
+func set_size(size: Vector2):
 	image.set_scale(size / image.texture.get_size())
+
 
 func set_object(value):
 	object = value

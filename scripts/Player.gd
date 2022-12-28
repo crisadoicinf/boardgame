@@ -1,17 +1,27 @@
 extends Object
 
-class_name Player
-
-var cell = null
+var avatar: String
+var slot: int
 var lap = 1
+var cell = null
 var finished = false
-var avatar:String
-var slot:int
+var cards: Array = []
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass  # Replace with function body.
+func set_avatar(value):
+	avatar = value
+
+
+func get_avatar():
+	return avatar
+
+
+func set_slot(value):
+	slot = value
+
+
+func get_slot():
+	return slot
 
 
 func set_cell(value):
@@ -29,3 +39,6 @@ func is_finished() -> bool:
 func set_finished(value: bool):
 	finished = value
 
+
+func get_cards():
+	return cards

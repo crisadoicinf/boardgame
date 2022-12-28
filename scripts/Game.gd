@@ -1,40 +1,57 @@
 extends Node2D
 
+const Deck = preload("res://scripts/cards/Deck.gd")
+const Player = preload("res://scripts/Player.gd")
+
 onready var board = $Board
 onready var dice = $Dice
-onready var playerSlots = [$PlayerSlots/Slot1, $PlayerSlots/Slot2, $PlayerSlots/Slot3, $PlayerSlots/Slot4]
+onready var playerSlots = [
+	$PlayerSlots/Slot1, $PlayerSlots/Slot2, $PlayerSlots/Slot3, $PlayerSlots/Slot4
+]
+onready var playerMainCard = $PlayerMainCard
 var players: Array = []
 var currentPlayer
 var laps = 1
 var movingPlayer: bool = false
 var avatars = []
+var deck = Deck.new()
 
 
 func _ready():
 	randomize()
+	board.set_game(self)
 	create_players(4)
 	for player in players:
 		var cell = board.get_cell_at(0)
 		cell.add_player(player)
 		player.set_cell(cell)
 		var bag = cell.get_bag(player)
-		var token = board.create_token(player, player.avatar)
+		var token = board.create_token(player, player.get_avatar())
 		token.set_position(bag.position)
-		playerSlots[player.slot].set_player(player)
+		playerSlots[player.get_slot()].set_player(player)
 	board.adjust_tokens(board.get_cell_at(0))
 	start_game()
 
 
-func create_players(total:int):
+func create_players(total: int):
 	avatars = ["chick", "chicken", "owl", "parrot", "penguin"].duplicate()
 	avatars.shuffle()
 	var slot = randi() % playerSlots.size()
 	for _i in range(total):
-		var player = load("res://scripts/Player.gd").new()
-		player.avatar = avatars.pop_back()
-		player.slot = slot%playerSlots.size()
-		slot+=1
+		var player = Player.new()
+		player.set_avatar(avatars.pop_back())
+		player.set_slot(slot % playerSlots.size())
+		slot += 1
 		players.append(player)
+
+
+func get_deck():
+	return deck
+
+
+func get_player_main_card():
+	return playerMainCard
+
 
 func start_game():
 	currentPlayer = players[0]
@@ -116,7 +133,7 @@ func _input(event):
 func handle_dice_click():
 	if !dice.is_rolling() and !movingPlayer:
 		var number = dice.get_random_number()
-		#number = 4
+		number = 4
 		playerSlots[currentPlayer.slot].roll_dice(number)
 		yield(dice.roll(number), "completed")
 		yield(move_player(currentPlayer, number), "completed")
