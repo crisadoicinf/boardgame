@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/avatars/chicken.png" type="Texture" id=1]
-[ext_resource path="res://scripts/PlayerSlot.gd" type="Script" id=2]
+[ext_resource path="res://components/PlayerSlot.gd" type="Script" id=2]
 [ext_resource path="res://resources/fonts/SpeedRush.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://components/Dice.tscn" type="PackedScene" id=4]
 

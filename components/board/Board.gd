@@ -1,7 +1,8 @@
 extends Node2D
-
+const Token = preload("res://components/Token.tscn")
 onready var cells: Node2D = $Cells
 onready var tokens: Node2D = $Tokens
+onready var deck: Area2D = $Desk
 
 
 func _ready():
@@ -15,11 +16,11 @@ func set_game(game):
 
 
 func create_token(object, textureName: String):
-	var token = load("res://components/Token.tscn").instance()
+	var token = Token.instance()
 	token.set_object(object)
 	tokens.add_child(token)
 	token.set_texture(textureName)
-	token.set_size(get_cell_at(0).get_middle_bag().size)
+	token.set_scale(get_cell_at(0).get_middle_bag().size / token.get_size())
 	return token
 
 
@@ -53,3 +54,7 @@ func get_next_cell(cell):
 func get_prev_cell(cell):
 	var index = (get_cells_length() + (cell.get_index() - 1)) % get_cells_length()
 	return get_cell_at(index)
+
+
+func get_deck_rect() -> Rect2:
+	return Rect2(deck.get_position(), deck.get_child(0).get_shape().get_extents() * 2)

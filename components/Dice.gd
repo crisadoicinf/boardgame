@@ -1,9 +1,12 @@
 extends Node2D
 
 signal roll_finished
+signal click(dice)
 
 onready var sprite: Sprite = $Sprite
 onready var timer: Timer = $Timer
+onready var area2D: Area2D = $Area2D
+var bound: Rect2
 var textures = [
 	preload("res://resources/dice/1.png"),
 	preload("res://resources/dice/2.png"),
@@ -15,10 +18,12 @@ var textures = [
 var time = 0
 var totalTime = 1
 var rollNumber
+var enabled: bool = true
 
 
 func _ready():
 	randomize()
+	bound = Rect2(Vector2(0, 0), area2D.get_child(0).get_shape().get_extents() * 2)
 
 
 func set_number(number: int):
@@ -52,3 +57,18 @@ func get_random_number() -> int:
 
 func get_size() -> Vector2:
 	return sprite.texture.get_size() * sprite.get_scale()
+
+
+func set_enabled(value: bool):
+	enabled = value
+
+
+func _input(event):
+	if (
+		enabled
+		and event is InputEventMouseButton
+		and event.is_pressed()
+		and event.get_button_index() == BUTTON_LEFT
+	):
+		if bound.has_point(to_local(event.position)):
+			emit_signal("click", self)

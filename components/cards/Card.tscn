@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://resources/objects/back_card.png" type="Texture" id=1]
+[ext_resource path="res://components/cards/Card.gd" type="Script" id=2]
+[ext_resource path="res://resources/objects/front_card.png" type="Texture" id=3]
+[ext_resource path="res://resources/items/stone.png" type="Texture" id=4]
+[ext_resource path="res://resources/fonts/SpeedRush.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/front_card.png-80f69617cad2e6f6998f3b4e447fbe59.stex"
+
+[sub_resource type="Animation" id=1]
+resource_name = "flip_front"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Container:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Container:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 75, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Container/InfoContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Container/Background:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), SubResource( 4 ) ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+extra_spacing_char = 1
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+extra_spacing_char = 2
+font_data = ExtResource( 5 )
+
+[node name="Card" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/flip_front = SubResource( 1 )
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite" parent="Container"]
+scale = Vector2( 2.292, 2.292 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="InfoContainer" type="Node2D" parent="Container"]
+
+[node name="Item" type="Sprite" parent="Container/InfoContainer"]
+position = Vector2( 170, 148 )
+scale = Vector2( 1.09483, 1.09483 )
+texture = ExtResource( 4 )
+
+[node name="Title" type="Label" parent="Container/InfoContainer"]
+margin_left = 20.0
+margin_top = 26.0
+margin_right = 323.0
+margin_bottom = 55.0
+custom_colors/font_color = Color( 0.172549, 0.168627, 0.168627, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Title"
+align = 1
+
+[node name="Description" type="Label" parent="Container/InfoContainer"]
+margin_left = 20.0
+margin_top = 237.0
+margin_right = 323.0
+margin_bottom = 438.0
+custom_colors/font_color = Color( 0.172549, 0.168627, 0.168627, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "stick asd asdasd asd as dasd asd dasd asd adas das dasd asd asd asd asd asd asdas das sad asd asdasdasd asd asd asd asd asda sdas d"
+align = 1
+autowrap = true
+clip_text = true
+max_lines_visible = 6
+
+[node name="Accept" type="Button" parent="Container/InfoContainer"]
+margin_left = 31.0
+margin_top = 446.0
+margin_right = 310.0
+margin_bottom = 486.0
+custom_fonts/font = SubResource( 3 )
+text = "ACCEPT"
+
+[connection signal="pressed" from="Container/InfoContainer/Accept" to="." method="_on_accept_pressed"]

@@ -18,7 +18,7 @@ func set_card(card):
 	if card == null:
 		item.set_visible(false)
 	else:
-		item.set_texture(load("res://resources/items/" + card.get_item_id() + ".png"))
+		item.set_texture(load("res://resources/items/" + card.get_id() + ".png"))
 		item.set_visible(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

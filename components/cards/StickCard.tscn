@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://components/cards/Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/items/stick.png" type="Texture" id=2]
+[ext_resource path="res://components/cards/StickCard.gd" type="Script" id=3]
+
+[node name="Card" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Item" parent="Container/InfoContainer" index="0"]
+texture = ExtResource( 2 )
+
+[node name="Title" parent="Container/InfoContainer" index="1"]
+text = "Stick"
+
+[node name="Description" parent="Container/InfoContainer" index="2"]
+text = "Throw the dice and chose a player who is at that distance from you to attack it.
+it skips the next turn"

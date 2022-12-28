@@ -1,25 +1,27 @@
 extends Node2D
 
-const Deck = preload("res://scripts/cards/Deck.gd")
-const Player = preload("res://scripts/Player.gd")
+signal card_accepted
+
+const Player = preload("res://components/Player.gd")
 
 onready var board = $Board
 onready var dice = $Dice
 onready var playerSlots = [
 	$PlayerSlots/Slot1, $PlayerSlots/Slot2, $PlayerSlots/Slot3, $PlayerSlots/Slot4
 ]
+onready var deck = $Deck
+onready var card = $Card
 onready var playerMainCard = $PlayerMainCard
 var players: Array = []
 var currentPlayer
 var laps = 1
-var movingPlayer: bool = false
 var avatars = []
-var deck = Deck.new()
 
 
 func _ready():
 	randomize()
 	board.set_game(self)
+	place_deck()
 	create_players(4)
 	for player in players:
 		var cell = board.get_cell_at(0)
@@ -31,6 +33,20 @@ func _ready():
 		playerSlots[player.get_slot()].set_player(player)
 	board.adjust_tokens(board.get_cell_at(0))
 	start_game()
+
+
+func place_deck():
+	var rect = board.get_deck_rect()
+	var position = board.get_position() + rect.position * board.get_scale()
+	var size = rect.size * board.get_scale()
+	var rotation = 0
+	if size.x > size.y:
+		size = Vector2(size.y, size.x)
+		position.y += size.x
+		rotation = -90
+	deck.set_position(position)
+	deck.set_scale(size / deck.get_size())
+	deck.set_rotation_degrees(rotation)
 
 
 func create_players(total: int):
@@ -49,21 +65,18 @@ func get_deck():
 	return deck
 
 
-func get_player_main_card():
-	return playerMainCard
-
-
 func start_game():
 	currentPlayer = players[0]
 	start_turn()
 
 
 func start_turn():
-	print("start_turn")
+	dice.set_enabled(true)
+	print(currentPlayer.get_avatar(), " start_turn")
 
 
 func move_player(player, steps):
-	movingPlayer = true
+	dice.set_enabled(false)
 	var token = board.get_token(player)
 	var cell = player.get_cell()
 	cell.remove_player(player)
@@ -95,10 +108,46 @@ func move_player(player, steps):
 		if !passing:
 			break
 	yield(player.get_cell().on_player_step(player), "completed")
-	movingPlayer = false
+	dice.set_enabled(true)
+
+
+func draw_card(player):
+	dice.set_enabled(false)
+	var size = deck.get_size() * deck.get_scale()
+	var card = deck.draw_card()
+	add_child(card)
+	card.connect("on_accept", self, "accept_card")
+	card.flip_back()
+	card.set_position(deck.get_position())
+	card.set_scale(size / card.get_size())
+	card.set_rotation_degrees(deck.get_rotation_degrees())
+	card.set_visible(true)
+	var cardSize = card.get_size()
+	var finalScaleX = get_viewport_rect().size.x * 0.5 / cardSize.x
+	var finalPosition = (get_viewport_rect().size - (cardSize * finalScaleX)) * 0.5
+	#move card to the front
+	var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	tween.tween_property(card, "position", finalPosition, 0.8)
+	tween.parallel().tween_method(card, "set_rotation_degrees", -90, 0, 0.8)
+	tween.parallel().tween_property(card, "scale", Vector2(finalScaleX, finalScaleX), 0.8)
+	tween.parallel().tween_callback(card, "flip_front")
+	yield(tween, "finished")
+	yield(self, "card_accepted")
+
+	#remove_child(card)
+	player.get_cards().append(card)
+	playerMainCard.set_card(card)
+	print("give player '", player.get_avatar(), "' card '", card.get_id(), "'")
+
+
+func accept_card(card):
+	remove_child(card)
+	dice.set_enabled(true)
+	emit_signal("card_accepted")
 
 
 func end_turn():
+	yield(draw_card(currentPlayer), "completed")
 	var index = players.find(currentPlayer, 0)
 	index = (index + 1) % players.size()
 	var player = players[index]
@@ -116,25 +165,11 @@ func end_game():
 	print("end game")
 
 
-func get_child_rect(child) -> Rect2:
-	return Rect2(child.get_position(), child.get_size() * child.get_scale())
-
-
-func _input(event):
-	if (
-		event is InputEventMouseButton
-		and event.is_pressed()
-		and event.get_button_index() == BUTTON_LEFT
-	):
-		if get_child_rect(dice).has_point(to_local(event.position)):
-			handle_dice_click()
-
-
-func handle_dice_click():
-	if !dice.is_rolling() and !movingPlayer:
-		var number = dice.get_random_number()
-		number = 4
-		playerSlots[currentPlayer.slot].roll_dice(number)
-		yield(dice.roll(number), "completed")
-		yield(move_player(currentPlayer, number), "completed")
-		end_turn()
+func _on_dice_click(dice):
+	dice.set_enabled(false)
+	var number = dice.get_random_number()
+	number = 4
+	playerSlots[currentPlayer.slot].roll_dice(number)
+	yield(dice.roll(number), "completed")
+	yield(move_player(currentPlayer, number), "completed")
+	end_turn()
