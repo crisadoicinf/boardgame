@@ -13,3 +13,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func on_player_step(player):
+	yield(get_tree(), "idle_frame")
+	print("give player item")

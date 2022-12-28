@@ -29,7 +29,7 @@ func create_players(total:int):
 	avatars = ["chick", "chicken", "owl", "parrot", "penguin"].duplicate()
 	avatars.shuffle()
 	var slot = randi() % playerSlots.size()
-	for i in range(total):
+	for _i in range(total):
 		var player = load("res://scripts/Player.gd").new()
 		player.avatar = avatars.pop_back()
 		player.slot = slot%playerSlots.size()
@@ -55,22 +55,29 @@ func move_player(player, steps):
 	var passing = true
 	for i in range(steps):
 		cell = cell.get_next_cell()
-		bag = cell.get_middle_bag()
+		#check if cell is goal
 		if cell.get_index() == 0:
+			#it is last player's lap
 			if player.lap == laps:
 				player.set_finished(true)
 				passing = false
+			#player starts next lap
 			else:
 				player.lap += 1
+		#check if it is the last step
 		passing = passing and i < steps - 1
-		if !passing:
+		if passing:
+			bag = cell.get_middle_bag()
+		else:
 			cell.add_player(player)
 			player.set_cell(cell)
 			bag = cell.get_bag(player)
 			board.adjust_tokens(cell)
 		yield(token.move_to(bag.position), "completed")
+		#check if player should stop moving
 		if !passing:
 			break
+	yield(player.get_cell().on_player_step(player), "completed")
 	movingPlayer = false
 
 
@@ -109,6 +116,7 @@ func _input(event):
 func handle_dice_click():
 	if !dice.is_rolling() and !movingPlayer:
 		var number = dice.get_random_number()
+		#number = 4
 		playerSlots[currentPlayer.slot].roll_dice(number)
 		yield(dice.roll(number), "completed")
 		yield(move_player(currentPlayer, number), "completed")

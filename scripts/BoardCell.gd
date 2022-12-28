@@ -85,11 +85,10 @@ func get_middle_bag():
 	var center = Rect2(get_position(), get_size()).get_center()
 	return Rect2(center - size * 0.5, size)
 
-func get_bag(object) -> Rect2:
+func get_bag_at(index:int, total:int) -> Rect2:
 	var positions = POSITIONS.back()
-	if objects.size() <= POSITIONS.size():
-		positions = POSITIONS[objects.size() - 1]
-	var index = objects.find(object, 0)
+	if total <= POSITIONS.size():
+		positions = POSITIONS[total - 1]
 	var position = [0.8, 0.5]
 	if index < positions.size():
 		position = positions[index]
@@ -106,3 +105,13 @@ func get_bag(object) -> Rect2:
 		y = position[0]
 	var size = get_size() * 0.5
 	return Rect2(get_position() + get_size() * Vector2(x, y) - size * 0.5, size)
+
+func get_next_bag():
+	return get_bag_at(objects.size(), objects.size() + 1)
+
+func get_bag(object) -> Rect2:
+	var index = objects.find(object, 0)
+	return get_bag_at(index, objects.size())
+
+func on_player_step(_player):
+	yield(get_tree(), "idle_frame")

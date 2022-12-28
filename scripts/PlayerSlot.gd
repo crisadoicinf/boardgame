@@ -11,7 +11,7 @@ func _ready():
 	
 func set_player(value):
 	player = value
-	image.set_texture(load("res://resources/avatar/" + player.avatar + ".png"))
+	image.set_texture(load("res://resources/avatars/" + player.avatar + ".png"))
 	
 func roll_dice(number):
 	yield(dice.roll(number), "completed")

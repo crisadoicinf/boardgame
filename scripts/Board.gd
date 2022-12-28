@@ -7,7 +7,6 @@ onready var tokens: Node2D = $Tokens
 
 
 func _ready():
-	var nextCell
 	for cell in cells.get_children():
 		cell.set_board(self)
 
