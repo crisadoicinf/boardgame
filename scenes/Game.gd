@@ -15,6 +15,7 @@ onready var playerDeck = $PlayercardContainer/PlayerDeck
 onready var turnText:Label = $TurnText/Label
 onready var totalCards = $TotalCards
 onready var totalDices = $TotalDices
+onready var finishTurnButton = $FinishTurnButton
 onready var anim:AnimationPlayer=$Anim
 var players: Array = []
 var currentPlayer
@@ -75,9 +76,11 @@ func start_game():
 
 func start_turn(player):
 	currentPlayer = player
+	finishTurnButton.set_visible(false)
+	player.set_dices(2)
 	turnText.set_text(player.get_avatar() + "'s turn")
 	totalCards.set_text(String(player.get_cards().size()))
-	totalDices.set_text("2")
+	totalDices.set_text(String(player.get_dices()))
 	anim.play("start_turn")
 	var cards = player.get_cards().duplicate()
 	playerMainCard.set_card(cards.pop_back())
@@ -186,18 +189,31 @@ func end_turn(player):
 
 func end_game():
 	print("end game")
+	
+	
+func roll_dice(player)->int:
+	player.use_dice()
+	totalDices.set_text(String(player.get_dices()))
+	var number = dice.get_random_number()
+	print("'", player.get_avatar(), "' throws dice '", number, "'")
+	playerSlots[player.slot].roll_dice(number)
+	yield(dice.roll(number), "completed")
+	return number
 
 
 func _on_dice_click(dice):
 	dice.set_enabled(false)
-	var number = dice.get_random_number()
-	number = 4
-	print("'", currentPlayer.get_avatar(), "' throws dice '", number, "'")
-	playerSlots[currentPlayer.slot].roll_dice(number)
-	yield(dice.roll(number), "completed")
-	yield(move_player(currentPlayer, number), "completed")
-	end_turn(currentPlayer)
+	var player = currentPlayer
+	var number = yield(roll_dice(player), "completed")
+	number=4
+	yield(move_player(player, number), "completed")
+	finishTurnButton.set_visible(player.get_dices() == 0)
+	if player.get_dices() == 0 and !player.has_active_cards():
+		end_turn(player)
 
+
+func _on_finish_turn_pressed():
+	end_turn(currentPlayer)
 
 var _openingDeck = false
 
@@ -225,3 +241,4 @@ func _input(event):
 		if !_openingDeck and playerDeck.is_visible():
 			playerDeck.hide()
 		_openingDeck = false
+
