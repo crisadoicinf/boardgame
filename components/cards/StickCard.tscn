@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://components/cards/Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/items/stick.png" type="Texture" id=2]
 [ext_resource path="res://components/cards/StickCard.gd" type="Script" id=3]
+[ext_resource path="res://resources/objects/back_card.png" type="Texture" id=4]
 
 [node name="Card" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+id = "stick"
+type = "Active"
+
+[node name="Background" parent="Container" index="0"]
+texture = ExtResource( 4 )
+
+[node name="InfoContainer" parent="Container" index="1"]
+visible = false
 
 [node name="Item" parent="Container/InfoContainer" index="0"]
 texture = ExtResource( 2 )

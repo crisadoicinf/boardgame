@@ -1,17 +1,24 @@
 extends Node2D
 
-const backCardTexture = preload("res://resources/objects/back_card.png")
 
+class CardType:
+	const TYPE_ACTIVE = 0
+	const TYPE_DEFENSIVE = 0
+	
+const backCardTexture = preload("res://resources/objects/back_card.png")
 signal on_accept(card)
 
 onready var anim: AnimationPlayer = $Anim
 onready var background: Sprite = $Container/Background
 onready var infoContainer = $Container/InfoContainer
-var id
-
+export(String) var id
+export(String, "Active", "Defensive") var type
 
 func get_id() -> String:
 	return id
+	
+func get_type() -> String:
+	return type
 
 
 func get_size():

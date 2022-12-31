@@ -5,6 +5,8 @@
 
 [node name="Card" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+id = "stone"
+type = "Active"
 
 [node name="Title" parent="Container/InfoContainer" index="1"]
 text = "Stone"
