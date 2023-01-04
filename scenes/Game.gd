@@ -228,8 +228,10 @@ func _on_player_card_click(playerCard):
 		playerDeck.show()
 	else:
 		playerDeck.hide()
-		#play card
-		print("'", currentPlayer.get_avatar(), " plays card '", playerCard.get_card().get_id(), "'")
+		var card = playerCard.get_card()
+		if card.get_type() == "Active":
+			print("'", player.get_avatar(), " plays card '", card.get_id(), "'")
+			card.play(player)
 
 
 func _input(event):

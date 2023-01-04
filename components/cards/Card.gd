@@ -1,10 +1,5 @@
 extends Node2D
 
-
-class CardType:
-	const TYPE_ACTIVE = 0
-	const TYPE_DEFENSIVE = 0
-	
 const backCardTexture = preload("res://resources/objects/back_card.png")
 signal on_accept(card)
 
@@ -38,5 +33,7 @@ func is_resource(resource: Resource) -> bool:
 	return resource.get_path() == get_script().get_path()
 
 
+func play(_player):
+	pass
 func _on_accept_pressed():
 	emit_signal("on_accept", self)
