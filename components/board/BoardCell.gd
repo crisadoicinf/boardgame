@@ -121,3 +121,27 @@ func get_bag(object) -> Rect2:
 
 func on_player_step(_player):
 	yield(get_tree(), "idle_frame")
+
+
+func get_distance_behind(to) -> int:
+	var b1 = get_index()
+	var b2 = to.get_index()
+	var a2 = board.get_cells_length() - b2
+	var behind = 0
+	if b1 > b2:
+		behind = b1 - b2
+	elif b1 < b2:
+		b1 + a2
+	return behind
+
+
+func get_distance_ahead(to) -> int:
+	var b1 = get_index()
+	var b2 = to.get_index()
+	var a1 = board.get_cells_length() - b1
+	var ahead = 0
+	if b2 > b1:
+		ahead = b2 - b1
+	elif b2 < b1:
+		ahead = a1 + b2
+	return ahead
