@@ -40,6 +40,7 @@ func set_enabled(value: bool):
 func _input(event):
 	if (
 		enabled
+		and card != null
 		and event is InputEventMouseButton
 		and event.is_pressed()
 		and event.get_button_index() == BUTTON_LEFT
