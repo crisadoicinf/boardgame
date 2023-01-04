@@ -33,7 +33,7 @@ func _ready():
 		cell.add_player(player)
 		player.set_cell(cell)
 		var bag = cell.get_bag(player)
-		var token = board.create_token(player, player.get_avatar())
+		var token = board.create_token(player, "res://resources/tokens/" + player.get_avatar() + ".png")
 		token.set_position(bag.position)
 		playerSlots[player.get_slot()].set_player(player)
 	board.adjust_tokens(board.get_cell_at(0))

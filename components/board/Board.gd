@@ -15,11 +15,11 @@ func set_game(game):
 		cell.set_game(game)
 
 
-func create_token(object, textureName: String):
+func create_token(object, texturePath: String):
 	var token = Token.instance()
 	token.set_object(object)
 	tokens.add_child(token)
-	token.set_texture(textureName)
+	token.set_texture(texturePath)
 	token.set_scale(get_cell_at(0).get_middle_bag().size / token.get_size())
 	return token
 
