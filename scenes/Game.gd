@@ -21,6 +21,7 @@ var players: Array = []
 var currentPlayer
 var laps = 1
 var avatars = []
+var _openingDeck = false
 
 
 func _ready():
@@ -68,6 +69,14 @@ func create_players(total: int):
 
 func get_deck():
 	return deck
+
+
+func get_players():
+	return players
+
+
+func get_board():
+	return board
 
 
 func start_game():
@@ -138,7 +147,7 @@ func draw_card(player):
 	var size = deck.get_size() * deck.get_scale()
 	var card = deck.draw_card()
 	add_child(card)
-	card.connect("on_accept", self, "accept_card")
+	card.connect("on_accept", self, "_on_card_accepted")
 	card.flip_back()
 	card.set_position(deck.get_position())
 	card.set_scale(size / card.get_size())
@@ -164,7 +173,14 @@ func draw_card(player):
 	print("'", player.get_avatar(), "' gets '", card.get_id(), "' card")
 
 
-func accept_card(card):
+func card_removed(player, _card):
+	totalCards.set_text(String(player.get_cards().size()))
+	var cards = player.get_cards().duplicate()
+	playerMainCard.set_card(cards.pop_back())
+	playerDeck.set_cards(cards)
+
+
+func _on_card_accepted(card):
 	remove_child(card)
 	dice.set_enabled(true)
 	playerMainCard.set_enabled(true)
@@ -215,15 +231,10 @@ func _on_dice_click(dice):
 func _on_finish_turn_pressed():
 	end_turn(currentPlayer)
 
-var _openingDeck = false
-
 
 func _on_player_card_click(playerCard):
-	if (
-		playerCard == playerMainCard
-		and currentPlayer.get_cards().size() > 1
-		and !playerDeck.is_visible()
-	):
+	var player = currentPlayer
+	if playerCard == playerMainCard and player.get_cards().size() > 1 and !playerDeck.is_visible():
 		_openingDeck = true
 		playerDeck.show()
 	else:
@@ -243,4 +254,3 @@ func _input(event):
 		if !_openingDeck and playerDeck.is_visible():
 			playerDeck.hide()
 		_openingDeck = false
-

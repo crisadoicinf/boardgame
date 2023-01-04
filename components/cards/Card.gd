@@ -8,12 +8,23 @@ onready var background: Sprite = $Container/Background
 onready var infoContainer = $Container/InfoContainer
 export(String) var id
 export(String, "Active", "Defensive") var type
+var game
+
 
 func get_id() -> String:
 	return id
-	
+
+
 func get_type() -> String:
 	return type
+
+
+func get_game():
+	return game
+
+
+func set_game(game):
+	self.game = game
 
 
 func get_size():
