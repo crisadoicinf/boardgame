@@ -43,18 +43,21 @@ func set_finished(value: bool):
 
 func get_cards():
 	return cards
-	
-	
-func set_dices(dices:int):
+
+
+func set_dices(dices: int):
 	self.dices = dices
 
-func get_dices()->int:
+
+func get_dices() -> int:
 	return dices
 
-func use_dice():
-	dices-=1
 
-func has_active_cards()->bool:
+func use_dice():
+	dices -= 1
+
+
+func has_active_cards() -> bool:
 	for card in cards:
 		if card.get_type() == "Active":
 			return true
