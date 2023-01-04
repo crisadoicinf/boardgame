@@ -23,6 +23,9 @@ func create_token(object, texturePath: String):
 	token.set_scale(get_cell_at(0).get_middle_bag().size / token.get_size())
 	return token
 
+func remove_token(token):
+	tokens.remove_child(token)
+
 
 func get_token(object):
 	for token in tokens.get_children():
