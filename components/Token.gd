@@ -24,7 +24,7 @@ func get_object():
 	return object
 
 
-func move_to(value: Vector2, time:float=0.4, trans:bool=true):
+func move_to(value: Vector2, time: float = 0.4, trans: bool = true):
 	moving = true
 	var tween = create_tween()
 	if trans:

@@ -46,5 +46,22 @@ func is_resource(resource: Resource) -> bool:
 
 func play(_player):
 	pass
+
+
+func move_token(player, token, target):
+	var cell = player.get_cell()
+	var behind = cell.get_distance_behind(target.get_cell())
+	var ahead = cell.get_distance_ahead(target.get_cell())
+	var steps = min(behind, ahead)
+	for i in range(steps):
+		if behind < ahead:
+			cell = cell.get_prev_cell()
+		else:
+			cell = cell.get_next_cell()
+		if i < steps - 1:
+			yield(token.move_to(cell.get_middle_bag().position, 0.2, false), "completed")
+	yield(token.move_to(game.get_board().get_token(target).get_position(), 0.2, false), "completed")
+
+
 func _on_accept_pressed():
 	emit_signal("on_accept", self)

@@ -12,11 +12,11 @@ onready var playerSlots = [
 onready var deck = $Deck
 onready var playerMainCard = $PlayercardContainer/PlayerMainCard
 onready var playerDeck = $PlayercardContainer/PlayerDeck
-onready var turnText:Label = $TurnText/Label
+onready var turnText: Label = $TurnText/Label
 onready var totalCards = $TotalCards
 onready var totalDices = $TotalDices
 onready var finishTurnButton = $FinishTurnButton
-onready var anim:AnimationPlayer=$Anim
+onready var anim: AnimationPlayer = $Anim
 var players: Array = []
 var currentPlayer
 var laps = 1
@@ -34,7 +34,9 @@ func _ready():
 		cell.add_player(player)
 		player.set_cell(cell)
 		var bag = cell.get_bag(player)
-		var token = board.create_token(player, "res://resources/tokens/" + player.get_avatar() + ".png")
+		var token = board.create_token(
+			player, "res://resources/tokens/" + player.get_avatar() + ".png"
+		)
 		token.set_position(bag.position)
 		playerSlots[player.get_slot()].set_player(player)
 	board.adjust_tokens(board.get_cell_at(0))
@@ -147,6 +149,7 @@ func draw_card(player):
 	var size = deck.get_size() * deck.get_scale()
 	var card = deck.draw_card()
 	add_child(card)
+	card.set_game(self)
 	card.connect("on_accept", self, "_on_card_accepted")
 	card.flip_back()
 	card.set_position(deck.get_position())
@@ -205,9 +208,9 @@ func end_turn(player):
 
 func end_game():
 	print("end game")
-	
-	
-func roll_dice(player)->int:
+
+
+func roll_dice(player) -> int:
 	player.use_dice()
 	totalDices.set_text(String(player.get_dices()))
 	var number = dice.get_random_number()
@@ -221,7 +224,7 @@ func _on_dice_click(dice):
 	dice.set_enabled(false)
 	var player = currentPlayer
 	var number = yield(roll_dice(player), "completed")
-	number=4
+	number = 4
 	yield(move_player(player, number), "completed")
 	finishTurnButton.set_visible(player.get_dices() == 0)
 	if player.get_dices() == 0 and !player.has_active_cards():
