@@ -10,9 +10,9 @@ func play(player):
 
 	#player needs to target another player
 	var target = players[randi() % players.size()]
-	yield(move_token(player, token, target), "completed")
+	yield(move_token_to_target(player, token, target), "completed")
 	game.get_board().remove_token(token)
-	print("hit")
+	game.hit_player(player, target)
 
 
 func _get_players(player):

@@ -5,6 +5,7 @@ var slot: int
 var lap = 1
 var cell = null
 var finished = false
+var hit = false
 var cards: Array = []
 var dices = 0
 
@@ -39,6 +40,14 @@ func is_finished() -> bool:
 
 func set_finished(value: bool):
 	finished = value
+
+
+func is_hit() -> bool:
+	return hit
+
+
+func set_hit(value: bool):
+	hit = value
 
 
 func get_cards():

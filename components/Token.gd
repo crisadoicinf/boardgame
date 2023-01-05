@@ -34,6 +34,17 @@ func move_to(value: Vector2, time: float = 0.4, trans: bool = true):
 	moving = false
 
 
+func restore():
+	image.set_rotation(0)
+
+
+func hit():
+	image.set_rotation(0)
+	var tween = create_tween()
+	tween.tween_property(image, "rotation", 540 * PI / 180, 0.5)
+	yield(tween, "finished")
+
+
 func is_moving() -> bool:
 	return moving
 

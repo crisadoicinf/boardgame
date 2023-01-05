@@ -87,6 +87,7 @@ func start_game():
 
 func start_turn(player):
 	currentPlayer = player
+	print("'", player.get_avatar(), "' starts turn")
 	finishTurnButton.set_visible(false)
 	player.set_dices(2)
 	turnText.set_text(player.get_avatar() + "'s turn")
@@ -96,13 +97,14 @@ func start_turn(player):
 	var cards = player.get_cards().duplicate()
 	playerMainCard.set_card(cards.pop_back())
 	playerDeck.set_cards(cards)
-	dice.set_enabled(true)
-	playerMainCard.set_enabled(true)
-	playerDeck.set_enabled(true)
-	#yield(draw_card(player), "completed")
-	#yield(draw_card(player), "completed")
-	#yield(draw_card(player), "completed")
-	print("'", player.get_avatar(), "' starts turn")
+	if player.is_hit():
+		player.set_hit(false)
+		board.get_token(player).restore()
+		end_turn(player)
+	else:
+		dice.set_enabled(true)
+		playerMainCard.set_enabled(true)
+		playerDeck.set_enabled(true)
 
 
 func move_player(player, steps):
@@ -189,6 +191,12 @@ func _on_card_accepted(card):
 	playerMainCard.set_enabled(true)
 	playerDeck.set_enabled(true)
 	emit_signal("card_accepted")
+
+
+func hit_player(player, target):
+	print("'", player.get_avatar(), "' attack '", target.get_avatar(), "'")
+	target.set_hit(true)
+	yield(board.get_token(target).hit(), "completed")
 
 
 func end_turn(player):

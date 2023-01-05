@@ -96,9 +96,8 @@ position = Vector2( 560, 1355 )
 position = Vector2( 194, 1268 )
 
 [node name="Label" type="Label" parent="TurnText"]
-margin_top = -17.0
 margin_right = 307.0
-margin_bottom = 55.0
+margin_bottom = 72.0
 custom_fonts/font = SubResource( 1 )
 text = "player's turn"
 align = 1

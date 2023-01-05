@@ -48,8 +48,7 @@ func play(_player):
 	yield(get_tree(), "idle_frame")
 
 
-
-func move_token(player, token, playerTarget):
+func move_token_to_target(player, token, playerTarget):
 	var cell = player.get_cell()
 	var behind = cell.get_distance_behind(playerTarget.get_cell())
 	var ahead = cell.get_distance_ahead(playerTarget.get_cell())
@@ -61,7 +60,8 @@ func move_token(player, token, playerTarget):
 			cell = cell.get_next_cell()
 		if i < steps - 1:
 			yield(token.move_to(cell.get_middle_bag().position, 0.2, false), "completed")
-	yield(token.move_to(game.get_board().get_token(playerTarget).get_position(), 0.2, false), "completed")
+	var position = game.get_board().get_token(playerTarget).get_position()
+	yield(token.move_to(position, 0.2, false), "completed")
 
 
 func _on_accept_pressed():
