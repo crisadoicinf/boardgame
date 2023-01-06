@@ -1,6 +1,8 @@
 extends Node2D
 
+signal click(token)
 onready var image: Sprite = $Image
+onready var area: Area2D = $Area2D
 
 var object
 var moving: bool = false
@@ -48,6 +50,18 @@ func hit():
 func is_moving() -> bool:
 	return moving
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+func set_clickable(value: bool):
+	if value:
+		area.connect("input_event", self, "_on_input_event")
+	else:
+		area.disconnect("input_event", self, "_on_input_event")
+
+
+func _on_input_event(viewport, event, shape_idx):
+	if (
+		event is InputEventMouseButton
+		and event.is_pressed()
+		and event.get_button_index() == BUTTON_LEFT
+	):
+		emit_signal("click", self)

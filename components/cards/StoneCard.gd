@@ -4,12 +4,9 @@ extends "res://components/cards/Card.gd"
 func play(player):
 	player.get_cards().erase(self)
 	game.card_removed(player, self)
-	var players = _get_players(player)
 	var token = game.get_board().create_token(self, "res://resources/items/" + get_id() + ".png")
-	token.set_position(player.get_cell().get_bag(player).position)
-
-	#player needs to target another player
-	var target = players[randi() % players.size()]
+	token.set_position(game.get_board().get_token(player).get_position())
+	var target = yield(game.target_player(_get_players(player)), "completed")
 	yield(move_token_to_target(player, token, target), "completed")
 	game.get_board().remove_token(token)
 	game.hit_player(player, target)

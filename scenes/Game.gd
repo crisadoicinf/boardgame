@@ -1,6 +1,7 @@
 extends Node2D
 
 signal card_accepted
+signal player_selected(player)
 
 const Player = preload("res://components/Player.gd")
 
@@ -34,10 +35,10 @@ func _ready():
 		cell.add_player(player)
 		player.set_cell(cell)
 		var bag = cell.get_bag(player)
-		var token = board.create_token(
-			player, "res://resources/tokens/" + player.get_avatar() + ".png"
-		)
+		var texture = "res://resources/tokens/" + player.get_avatar() + ".png"
+		var token = board.create_token(player, texture)
 		token.set_position(bag.position)
+		token.connect("click", self, "_on_token_selected")
 		playerSlots[player.get_slot()].set_player(player)
 	board.adjust_tokens(board.get_cell_at(0))
 	start_game()
@@ -193,6 +194,16 @@ func _on_card_accepted(card):
 	emit_signal("card_accepted")
 
 
+func target_player(players):
+	yield(get_tree(), "idle_frame")
+	for player in players:
+		board.get_token(player).set_clickable(true)
+	var target = yield(self, "player_selected")
+	for player in players:
+		board.get_token(player).set_clickable(false)
+	return target
+
+
 func hit_player(player, target):
 	print("'", player.get_avatar(), "' attack '", target.get_avatar(), "'")
 	target.set_hit(true)
@@ -265,3 +276,7 @@ func _input(event):
 		if !_openingDeck and playerDeck.is_visible():
 			playerDeck.hide()
 		_openingDeck = false
+
+
+func _on_token_selected(token):
+	emit_signal("player_selected", token.get_object())
