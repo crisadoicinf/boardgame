@@ -103,14 +103,14 @@ func start_turn(player):
 		board.get_token(player).restore()
 		end_turn(player)
 	else:
-		dice.set_enabled(true)
+		dice.set_clickable(true)
 		playerMainCard.set_enabled(true)
 		playerDeck.set_enabled(true)
 
 
 func move_player(player, steps):
 	print("'", player.get_avatar(), "' moves '", steps, "' steps")
-	dice.set_enabled(false)
+	dice.set_clickable(false)
 	var token = board.get_token(player)
 	var cell = player.get_cell()
 	cell.remove_player(player)
@@ -142,11 +142,11 @@ func move_player(player, steps):
 		if !passing:
 			break
 	yield(player.get_cell().on_player_step(player), "completed")
-	dice.set_enabled(true)
+	dice.set_clickable(true)
 
 
 func draw_card(player):
-	dice.set_enabled(false)
+	dice.set_clickable(false)
 	playerMainCard.set_enabled(false)
 	playerDeck.set_enabled(false)
 	var size = deck.get_size() * deck.get_scale()
@@ -188,7 +188,7 @@ func card_removed(player, _card):
 
 func _on_card_accepted(card):
 	remove_child(card)
-	dice.set_enabled(true)
+	dice.set_clickable(true)
 	playerMainCard.set_enabled(true)
 	playerDeck.set_enabled(true)
 	emit_signal("card_accepted")
@@ -240,7 +240,7 @@ func roll_dice(player) -> int:
 
 
 func _on_dice_click(dice):
-	dice.set_enabled(false)
+	dice.set_clickable(false)
 	var player = currentPlayer
 	var number = yield(roll_dice(player), "completed")
 	number = 4

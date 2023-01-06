@@ -5,6 +5,7 @@ signal click(dice)
 
 onready var sprite: Sprite = $Sprite
 onready var timer: Timer = $Timer
+onready var area: Area2D = $Area2D
 var textures = [
 	preload("res://resources/dice/1.png"),
 	preload("res://resources/dice/2.png"),
@@ -16,7 +17,6 @@ var textures = [
 var time = 0
 var totalTime = 1
 var rollNumber
-var enabled: bool = true
 
 
 func _ready():
@@ -56,13 +56,16 @@ func get_size() -> Vector2:
 	return sprite.texture.get_size() * sprite.get_scale()
 
 
-func set_enabled(value: bool):
-	enabled = value
+func set_clickable(value: bool):
+	if value:
+		area.connect("input_event", self, "_on_input_event")
+	else:
+		area.disconnect("input_event", self, "_on_input_event")
+
 
 func _on_input_event(viewport, event, shape_idx):
 	if (
-		enabled
-		and event is InputEventMouseButton
+		event is InputEventMouseButton
 		and event.is_pressed()
 		and event.get_button_index() == BUTTON_LEFT
 	):
