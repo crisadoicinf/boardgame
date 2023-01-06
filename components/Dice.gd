@@ -5,8 +5,6 @@ signal click(dice)
 
 onready var sprite: Sprite = $Sprite
 onready var timer: Timer = $Timer
-onready var area2D: Area2D = $Area2D
-var bound: Rect2
 var textures = [
 	preload("res://resources/dice/1.png"),
 	preload("res://resources/dice/2.png"),
@@ -23,7 +21,6 @@ var enabled: bool = true
 
 func _ready():
 	randomize()
-	bound = Rect2(Vector2(0, 0), area2D.get_child(0).get_shape().get_extents() * 2)
 
 
 func set_number(number: int):
@@ -69,5 +66,4 @@ func _on_input_event(viewport, event, shape_idx):
 		and event.is_pressed()
 		and event.get_button_index() == BUTTON_LEFT
 	):
-		if bound.has_point(to_local(event.position)):
-			emit_signal("click", self)
+		emit_signal("click", self)
