@@ -62,8 +62,7 @@ func get_size() -> Vector2:
 func set_enabled(value: bool):
 	enabled = value
 
-
-func _input(event):
+func _on_input_event(viewport, event, shape_idx):
 	if (
 		enabled
 		and event is InputEventMouseButton
