@@ -3,6 +3,7 @@ extends Node2D
 signal click(token)
 onready var image: Sprite = $Image
 onready var area: Area2D = $Area2D
+onready var anim:AnimationPlayer = $Anim
 
 var object
 var moving: bool = false
@@ -54,8 +55,10 @@ func is_moving() -> bool:
 func set_clickable(value: bool):
 	if value:
 		area.connect("input_event", self, "_on_input_event")
+		anim.play("Selectable")
 	else:
 		area.disconnect("input_event", self, "_on_input_event")
+		anim.stop(true)
 
 
 func _on_input_event(viewport, event, shape_idx):
