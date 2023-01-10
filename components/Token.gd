@@ -3,7 +3,7 @@ extends Node2D
 signal click(token)
 onready var image: Sprite = $Image
 onready var area: Area2D = $Area2D
-onready var anim:AnimationPlayer = $Anim
+onready var anim: AnimationPlayer = $Anim
 
 var object
 var moving: bool = false

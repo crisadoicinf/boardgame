@@ -4,6 +4,7 @@ signal card_accepted
 signal player_selected(player)
 
 const Player = preload("res://components/Player.gd")
+const Dice = preload("res://components/Dice.gd")
 
 onready var board = $Board
 onready var dice = $Dice
@@ -229,21 +230,20 @@ func end_game():
 	print("end game")
 
 
-func roll_dice(player) -> int:
+func roll_dice(player, number):
 	player.use_dice()
 	totalDices.set_text(String(player.get_dices()))
-	var number = dice.get_random_number()
 	print("'", player.get_avatar(), "' throws dice '", number, "'")
 	playerSlots[player.slot].roll_dice(number)
 	yield(dice.roll(number), "completed")
-	return number
 
 
 func _on_dice_click(dice):
 	dice.set_clickable(false)
 	var player = currentPlayer
-	var number = yield(roll_dice(player), "completed")
-	number = 4
+	var number = Dice.get_random_number()
+	#number = 4
+	yield(roll_dice(player, number), "completed")
 	yield(move_player(player, number), "completed")
 	finishTurnButton.set_visible(player.get_dices() == 0)
 	if player.get_dices() == 0 and !player.has_active_cards():

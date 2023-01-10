@@ -58,6 +58,10 @@ func set_dices(dices: int):
 	self.dices = dices
 
 
+func add_dices(dices: int):
+	self.dices += dices
+
+
 func get_dices() -> int:
 	return dices
 

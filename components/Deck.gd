@@ -3,7 +3,7 @@ extends Node2D
 const StickCard = preload("res://components/cards/StickCard.tscn")
 const StoneCard = preload("res://components/cards/StoneCard.tscn")
 
-const cards = [StoneCard]
+const cards = [StickCard, StoneCard]
 onready var firstCard: Sprite = $FirstCard
 
 

@@ -48,7 +48,7 @@ func is_rolling() -> bool:
 	return !timer.is_stopped()
 
 
-func get_random_number() -> int:
+static func get_random_number() -> int:
 	return randi() % 6 + 1
 
 
