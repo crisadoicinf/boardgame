@@ -4,7 +4,7 @@ extends "res://components/cards/Card.gd"
 func play(player):
 	player.get_cards().erase(self)
 	game.card_removed(player, self)
-	var token = game.get_board().create_token(self, "res://resources/items/" + get_id() + ".png")
+	var token = game.get_board().create_token(self, get_id())
 	token.set_position(game.get_board().get_token(player).get_position())
 	var target = yield(game.target_player(_get_players(player)), "completed")
 	yield(move_token_to_target(player, token, target), "completed")

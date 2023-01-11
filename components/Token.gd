@@ -11,8 +11,8 @@ var moving: bool = false
 # Called when the node enters the scene tree for the first time.
 
 
-func set_texture(path: String):
-	image.set_texture(load(path))
+func set_texture(name: String):
+	image.set_texture(load("res://resources/tokens/" + name + ".png"))
 
 
 func get_size() -> Vector2:

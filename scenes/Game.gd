@@ -36,8 +36,7 @@ func _ready():
 		cell.add_player(player)
 		player.set_cell(cell)
 		var bag = cell.get_bag(player)
-		var texture = "res://resources/tokens/" + player.get_avatar() + ".png"
-		var token = board.create_token(player, texture)
+		var token = board.create_token(player, player.get_avatar())
 		token.set_position(bag.position)
 		token.connect("click", self, "_on_token_selected")
 		playerSlots[player.get_slot()].set_player(player)

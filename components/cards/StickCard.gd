@@ -6,7 +6,7 @@ const Dice = preload("res://components/Dice.gd")
 func play(player):
 	player.get_cards().erase(self)
 	game.card_removed(player, self)
-	var token = game.get_board().create_token(self, "res://resources/items/" + get_id() + ".png")
+	var token = game.get_board().create_token(self, get_id())
 	token.set_position(game.get_board().get_token(player).get_position())
 	player.add_dices(1)
 	var dice = Dice.get_random_number()
