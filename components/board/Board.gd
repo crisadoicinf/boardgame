@@ -20,7 +20,7 @@ func create_token(object, texturePath: String):
 	token.set_object(object)
 	tokens.add_child(token)
 	token.set_texture(texturePath)
-	token.set_scale(get_cell_at(0).get_middle_bag().size / token.get_size())
+	token.set_scale(cells.get_child(0).get_middle_bag().size / token.get_size())
 	return token
 
 
@@ -41,23 +41,18 @@ func adjust_tokens(cell):
 		bag = cell.get_bag(object)
 		get_token(object).move_to(bag.position)
 
-
-func get_cells_length() -> int:
-	return cells.get_children().size()
-
-
-func get_cell_at(index: int):
-	return cells.get_child(index)
+func get_cells()->Array:
+	return cells.get_children()
 
 
 func get_next_cell(cell):
-	var index = (cell.get_index() + 1) % get_cells_length()
-	return get_cell_at(index)
+	var index = (cell.get_index() + 1) % get_cells().size()
+	return cells.get_child(index)
 
 
 func get_prev_cell(cell):
-	var index = (get_cells_length() + (cell.get_index() - 1)) % get_cells_length()
-	return get_cell_at(index)
+	var index = (get_cells().size()+ (cell.get_index() - 1)) % get_cells().size()
+	return cells.get_child(index)
 
 
 func get_deck_rect() -> Rect2:

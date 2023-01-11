@@ -32,7 +32,7 @@ func _ready():
 	place_deck()
 	create_players(4)
 	for player in players:
-		var cell = board.get_cell_at(0)
+		var cell = board.get_cells()[0]
 		cell.add_player(player)
 		player.set_cell(cell)
 		var bag = cell.get_bag(player)
@@ -40,7 +40,7 @@ func _ready():
 		token.set_position(bag.position)
 		token.connect("click", self, "_on_token_selected")
 		playerSlots[player.get_slot()].set_player(player)
-	board.adjust_tokens(board.get_cell_at(0))
+	board.adjust_tokens(board.get_cells()[0])
 	start_game()
 
 
