@@ -63,6 +63,9 @@ func move_token_to_target(player, token, playerTarget):
 	var position = game.get_board().get_token(playerTarget).get_position()
 	yield(token.move_to(position, 0.2, false), "completed")
 
+func throw_token_to_cell(item, token, cell):
+	var position = cell.get_bag(item).position
+	yield(token.move_to(position, 0.8), "completed")
 
 func _on_accept_pressed():
 	emit_signal("on_accept", self)
